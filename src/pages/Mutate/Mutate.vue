@@ -7,32 +7,8 @@
     <br />
     <br />
     <mutation-matrix />
-
     <br />
-    <br />
-    <p v-text="this.mutationMessage"></p>
-    <h2>Produção dos alelos:</h2>
-    <p>
-      Alelo A1: {{ cowPlayer.alleles.male[0].production }}ml | Alelo A2:
-      {{ cowPlayer.alleles.female[0].production }}ml
-    </p>
-    <p>
-      Alelo B1: {{ cowPlayer.alleles.male[1].production }}ml | Alelo B2:
-      {{ cowPlayer.alleles.female[1].production }}ml
-    </p>
-    <p>
-      Alelo C1: {{ cowPlayer.alleles.male[2].production }}ml | Alelo C2:
-      {{ cowPlayer.alleles.female[2].production }}ml
-    </p>
-    <p>
-      Alelo D1: {{ cowPlayer.alleles.male[3].production }}ml | Alelo D2:
-      {{ cowPlayer.alleles.female[3].production }}ml
-    </p>
-    <p>
-      Alelo E1: {{ cowPlayer.alleles.male[4].production }}ml | Alelo E2:
-      {{ cowPlayer.alleles.female[4].production }}ml
-    </p>
-
+    <allele-production-table />
     <br />
     <br />
     <button
@@ -45,9 +21,10 @@
 </template>
 
 <script>
+import AlleleProductionTable from "../../components/AlleleProductionTable.vue";
 import MutationMatrix from "./components/MutationMatrix.vue";
 export default {
-  components: { MutationMatrix },
+  components: { MutationMatrix, AlleleProductionTable },
   data: () => ({ localButtonState: [], mutationMessage: "" }),
 
   watch: {},

@@ -1,3 +1,5 @@
+const REFERENCE_BASE_PRODUCTION = 2500
+
 export const setState = (prevState, newState) => Object.assign(prevState, newState)
 
 export const toggleMutationButton = (state, { line, column }) => state.buttonsState.mutationButtons[line][column] = !state.buttonsState.mutationButtons[line][column]
@@ -12,6 +14,8 @@ export const registerCow = (state, { name, numberOfAlleles }) => {
         female: 2
     }
     state.cowPlayer.name = name
+    state.cowPlayer.baseProduction = Math.floor(REFERENCE_BASE_PRODUCTION / numberOfAlleles)
+    state.cowPlayer.mutationsRemaining = numberOfAlleles
     for (let index = 0; index < numberOfAlleles; index++) {
         const letter = String.fromCharCode(65 + index)
 
@@ -45,7 +49,7 @@ export const hasMutated = (state, { index, sex }) => {
 export const randomizeAlleleProduction = (state, { sex }) => {
 
     state.cowPlayer.alleles[sex].forEach(allele => {
-        const alleleProductionChoices = [500, 1000]
+        const alleleProductionChoices = [state.cowPlayer.baseProduction, state.cowPlayer.baseProduction * 2]
         const alleleProduction = alleleProductionChoices[Math.floor(Math.random() * alleleProductionChoices.length)]
 
         allele.production = alleleProduction
@@ -79,7 +83,7 @@ export const multiplyAlleleProduction = (state, { index, multiplyingFactor, sex 
 export const applyMutation = (state, { allele, operator, position }) => {
     state.cowPlayer.alleles[allele.sex][allele.index].production = operator.fn(allele.production)
     state.cowPlayer.alleles[allele.sex][allele.index].hasMutated = true
-    state.cowPlayer.activeMutations = [...state.cowPlayer.activeMutations, { operator, allele, position }]
+    state.cowPlayer.activeMutations = [...state.cowPlayer.activeMutations, { operator: { ...operator, name: operator.name(allele) }, allele, position }]
     state.cowPlayer.mutationsRemaining -= 1
 }
 

@@ -13,7 +13,7 @@
       v-for="(mutation, index) in cowPlayer.activeMutations"
       :key="`${index}-mutation`"
     >
-      {{ mutation.operator.name }} {{ mutation.allele.alleleName }}
+      {{ mutation.operator.name }}
     </p>
   </div>
 </template>
@@ -35,35 +35,43 @@ export default {
       return [
         {
           fn: () => 0,
-          name: "Desfuncionalização no alelo",
+          name: (allele) => `Desfuncionalização no alelo ${allele.alleleName}`,
         },
         {
-          fn: () => 100,
-          name: "Produção reduzida para 100 ml no alelo",
+          fn: () => Math.floor(this.cowPlayer.baseProduction / 5),
+          name: (allele) =>
+            `Produção reduzida para ${Math.floor(
+              this.cowPlayer.baseProduction / 5
+            )} ml no alelo ${allele.alleleName}`,
         },
         {
-          fn: () => 500,
-          name: "Produção alterada para 500 ml no alelo",
+          fn: () => this.cowPlayer.baseProduction,
+          name: (allele) =>
+            `Produção alterada para ${this.cowPlayer.baseProduction} ml no alelo ${allele.alleleName}`,
         },
         {
-          fn: () => 1000,
-          name: "Produção alterada para 1000 ml no alelo",
+          fn: () => this.cowPlayer.baseProduction * 2,
+          name: (allele) =>
+            `Produção alterada para ${
+              this.cowPlayer.baseProduction * 2
+            } ml no alelo ${allele.alleleName}`,
         },
         {
           fn: (value) => value * 2,
-          name: "Produção duplicada no alelo",
+          name: (allele) => `Produção duplicada no alelo ${allele.alleleName}`,
         },
         {
           fn: (value) => value * 3,
-          name: "Produção triplicada no alelo",
+          name: (allele) => `Produção triplicada no alelo ${allele.alleleName}`,
         },
         {
           fn: (value) => value / 2,
-          name: "Produção cortada pela metade no alelo",
+          name: (allele) =>
+            `Produção cortada pela metade no alelo ${allele.alleleName}`,
         },
         {
           fn: (value) => value,
-          name: "Mutação neutra",
+          name: () => `Mutação neutra`,
         },
       ];
     },
