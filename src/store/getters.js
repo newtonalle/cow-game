@@ -7,6 +7,8 @@ export const hasMutated = (state) => state.cowPlayer.mutationsRemaining <= 0
 
 export const getCowPlayer = (state) => state.cowPlayer
 
+export const getCurrentStage = (state) => state.cowPlayer.currentStage
+
 export const getButtonsState = (state) => state.buttonsState
 
 export const getCowTotalProduction = (state) => state.cowPlayer.alleles.male.reduce((production, allele) => allele.production + production, 0) +

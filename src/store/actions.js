@@ -1,12 +1,14 @@
 import defaultState from './state'
 
-export const resetState = (context) => context.commit("setState", defaultState())
+export const resetState = (context) => context.commit('setState', defaultState())
 
 export const toggleMutationButton = (context, { line, column }) => context.commit("toggleMutationButton", { line, column })
 
 export const toggleBirthButton = (context, sex) => context.commit("toggleBirthButton", sex)
 
-export const registerCow = (context, { name, numberOfAlleles }) => context.commit('registerCow', { name, numberOfAlleles })
+export const setCurrentStage = (context, stage) => context.commit("setCurrentStage", stage)
+
+export const registerCow = (context, { name, numberOfGenes }) => context.commit('registerCow', { name, numberOfGenes })
 
 export const born = (context) => context.commit('born')
 
@@ -26,6 +28,19 @@ export const applyMutation = (context, { allele, operator, position }) => {
     }
 }
 
-// Ajeitar CSS e frases
+// Ajeitar CSS e frases - Done
+
+// Só mostrar "continuar jogo" no navbar se um jogo já existir- Done
+
+// Alterar botões - Done
+
+// Alterar tabelas - J
+
+// Escrever texto da home do jogo da vaca - Done
+
+// Arrumar bug de duplicação de alelos - J
+
+// Quando o alelo não alterar de valor ao ser operado alterar frase para - Mutação Neutra
+
 
 // Apagar debugs

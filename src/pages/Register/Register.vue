@@ -1,12 +1,23 @@
 <template>
-  <div>
-    <h1>Nomeie sua vaca!</h1>
+  <div class="container-fluid text-center">
+    <img src="@/assets/images/Cow.png" width="100px" height="100px" />
+    <h1>Crie sua vaca!</h1>
     <br />
+    <p>Nome da vaca:</p>
     <input v-model="name" type="text" placeholder="Nome" />
     <br />
-    <input v-model="numberOfAlleles" type="number" placeholder="N° de alelos" />
     <br />
-    <button :disabled="!this.name" @click="setName">Confirmar nome</button>
+    <p>Número de genes responsáveis pela produção de leite:</p>
+    <input v-model="numberOfGenes" type="number" placeholder="N° de genes" />
+    <br />
+    <br />
+    <button
+      class="btn btn-primary btn-lg mt-3"
+      :disabled="!this.name"
+      @click="createCow"
+    >
+      Confirmar vaca
+    </button>
   </div>
 </template>
 
@@ -14,20 +25,20 @@
 export default {
   data: () => ({
     name: "",
-    numberOfAlleles: 5,
+    numberOfGenes: 5,
   }),
   watch: {},
 
   computed: {},
 
   methods: {
-    setName() {
+    createCow() {
       this.$store.dispatch("resetState");
       this.$store.dispatch("registerCow", {
         name: this.name,
-        numberOfAlleles: this.numberOfAlleles,
+        numberOfGenes: this.numberOfGenes,
       });
-      this.$router.push({ path: "/" });
+      this.$router.push({ name: "birth" });
     },
   },
 };

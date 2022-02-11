@@ -9,7 +9,9 @@
         @mutateAllele="mutateRandomAllele(line, column)"
       />
     </div>
+    <br />
     <p
+      class="fs-5"
       v-for="(mutation, index) in cowPlayer.activeMutations"
       :key="`${index}-mutation`"
     >

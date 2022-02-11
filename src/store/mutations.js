@@ -8,15 +8,18 @@ export const toggleBirthButton = (state, sex) => {
     state.buttonsState.birthButtons[sex] = !state.buttonsState.birthButtons[sex]
 }
 
-export const registerCow = (state, { name, numberOfAlleles }) => {
+export const setCurrentStage = (state, stage) => state.cowPlayer.currentStage = stage
+
+
+export const registerCow = (state, { name, numberOfGenes }) => {
     const sexSuffixes = {
         male: 1,
         female: 2
     }
     state.cowPlayer.name = name
-    state.cowPlayer.baseProduction = Math.floor(REFERENCE_BASE_PRODUCTION / numberOfAlleles)
-    state.cowPlayer.mutationsRemaining = numberOfAlleles
-    for (let index = 0; index < numberOfAlleles; index++) {
+    state.cowPlayer.baseProduction = Math.floor(REFERENCE_BASE_PRODUCTION / numberOfGenes)
+    state.cowPlayer.mutationsRemaining = numberOfGenes
+    for (let index = 0; index < numberOfGenes; index++) {
         const letter = String.fromCharCode(65 + index)
 
         Object.entries(sexSuffixes).forEach(([sex, sexSuffixes]) => {

@@ -1,21 +1,14 @@
 <template>
-  <div id="app" style="margin-bottom: 10px">
-    <h2 style="text-align: center">
-      I-+-+-+-+-+-+-+- Vacas Sobreviventes -+-+-+-+-+-+-+-I
-    </h2>
-    <a href="">Voltar ao menu principal</a>
-    <h1 style="font-weight: bold">
-      ---------------------------------------------------------
-    </h1>
+  <div id="app">
+    <toolbar />
     <router-view></router-view>
-    <h1 style="font-weight: bold">
-      ---------------------------------------------------------
-    </h1>
   </div>
 </template>
 
 <script>
+import Toolbar from "./components/layout/Toolbar.vue";
 export default {
+  components: { Toolbar },
   name: "App",
 };
 </script>
@@ -25,8 +18,10 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  height: 100%;
+}
+body {
+  margin: 0 !important;
 }
 </style>

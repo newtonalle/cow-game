@@ -1,7 +1,8 @@
 <template>
   <div>
     <h2>Produção dos alelos:</h2>
-    <p v-for="(gene, index) of genes" :key="`gene-${index}`">
+    <br />
+    <p class="fs-5" v-for="(gene, index) of genes" :key="`gene-${index}`">
       Alelo {{ gene.male.alleleName }}: {{ gene.male.production }}ml | Alelo
       {{ gene.female.alleleName }}: {{ gene.female.production }}ml
     </p>

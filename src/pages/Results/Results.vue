@@ -1,13 +1,30 @@
 <template>
-  <div>
-    <h1>
-      A produção total de {{ cowPlayer.name }} foi de
-      {{ totalProduction }}
-      ml
-    </h1>
+  <div class="container-fluid text-center">
+    <img src="@/assets/images/Cow.png" width="100px" height="100px" />
     <br />
+    <h1>Resultados:</h1>
+    <br />
+    <h2>
+      A produção total de {{ cowPlayer.name }} foi de {{ totalProduction }} ml
+    </h2>
     <br />
     <h3 v-text="this.message"></h3>
+    <br />
+    <button
+      style="width: 200px"
+      @click="backToMainMenu"
+      class="btn btn-primary btn-lg mt-3"
+    >
+      Menu principal
+    </button>
+    <br />
+    <button
+      style="width: 200px"
+      @click="playAgain"
+      class="btn btn-primary btn-lg mt-3"
+    >
+      Jogar novamente
+    </button>
   </div>
 </template>
 
@@ -26,17 +43,21 @@ export default {
   },
 
   methods: {
+    backToMainMenu() {
+      this.$router.push({ name: "home" });
+    },
     playAgain() {
-      this.$router.push({ path: "/" });
+      this.$router.push({ name: "register" });
     },
   },
   created() {
+    this.$store.dispatch("setCurrentStage", "results");
     if (this.$store.getters.getCowTotalProduction >= 6000) {
       this.message =
-        "O leite produzido por sua vaca foi o suficiente para alimentar e criar proles saudáveis, você ganhou o jogo!";
+        "O leite produzido por sua vaca foi o suficiente para alimentar e criar proles saudáveis!";
     } else {
       this.message =
-        "O leite produzido por sua vaca não foi o suficiente para alimentar e criar proles saudáveis, portanto suas proles cresceram fracas e desnutridas, você perdeu o jogo!";
+        "O leite produzido por sua vaca não foi o suficiente para alimentar e criar proles saudáveis, portanto suas proles cresceram fracas e desnutridas!";
     }
   },
 };

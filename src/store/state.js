@@ -3,6 +3,7 @@ const state = {
         birthButtons: { male: false, female: false },
     },
     cowPlayer: {
+        currentStage: "",
         baseProduction: 0,
         activeMutations: [],
         born: false,

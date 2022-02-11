@@ -8,11 +8,11 @@ import Results from './pages/Results/Results.vue'
 
 export default [
     { path: '/', alias: ['/home'], component: Home, name: "home" },
-    { path: '/rules', component: Rules },
+    { path: '/rules', component: Rules, name: 'rules' },
     { path: '/register', component: Register, name: "register" },
-    { path: '/play/birth', component: Birth, meta: { requiresRegisteredPlayer: true } },
-    { path: '/play/mutate', component: Mutate, meta: { requiresBornPlayer: true } },
-    { path: '/credits', component: Credits },
-    { path: '/results', component: Results, meta: { requiresMutatedPlayer: true } },
+    { path: '/play/birth', component: Birth, meta: { requiresRegisteredPlayer: true }, name: "birth" },
+    { path: '/play/mutate', component: Mutate, meta: { requiresBornPlayer: true }, name: "mutate" },
+    { path: '/credits', component: Credits, name: 'credits' },
+    { path: '/results', component: Results, meta: { requiresMutatedPlayer: true }, name: 'results' },
 
 ]
