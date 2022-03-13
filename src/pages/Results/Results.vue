@@ -35,7 +35,7 @@ export default {
 
   computed: {
     cowPlayer() {
-      return this.$store.getters.getCowPlayer;
+      return this.$store.getters.getCurrentCowPlayer;
     },
     totalProduction() {
       return this.$store.getters.getCowTotalProduction;

@@ -1,8 +1,19 @@
-const state = {
-    buttonsState: {
-        birthButtons: { male: false, female: false },
+export default () => ({
+    game: {
+        currentGamemode: "singleplayer",
+        hasRegistered: false,
+        currentStage: "",
+        baseProduction: 0,
+        numberOfGenes: 0,
+        currentCowIndex: 0,
+        cowPlayers: [],
     },
+
     cowPlayer: {
+        birthed: {
+            male: false,
+            female: false
+        },
         currentStage: "",
         baseProduction: 0,
         activeMutations: [],
@@ -16,6 +27,4 @@ const state = {
             ],
         },
     }
-}
-
-export default () => state
+})

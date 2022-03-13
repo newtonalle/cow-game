@@ -20,11 +20,20 @@
     <br />
     <br />
     <button
+      style="width: 200px"
       class="btn btn-primary btn-lg mt-3"
       :disabled="this.cowPlayer.mutationsRemaining > 0"
       @click="showFinalResults"
     >
       Resultados Finais
+    </button>
+    <br />
+    <button
+      @click="backToMainMenu"
+      style="width: 200px"
+      class="btn btn-primary btn-lg mt-3"
+    >
+      Menu principal
     </button>
     <br />
     <br />
@@ -42,7 +51,7 @@ export default {
 
   computed: {
     cowPlayer() {
-      return this.$store.getters.getCowPlayer;
+      return this.$store.getters.getCurrentCowPlayer;
     },
     buttonsState() {
       return this.$store.getters.getButtonsState;
@@ -52,6 +61,9 @@ export default {
   methods: {
     showFinalResults() {
       this.$router.push({ name: "results" });
+    },
+    backToMainMenu() {
+      this.$router.push({ name: "home" });
     },
   },
   created() {

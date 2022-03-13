@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>Mutações:</h2>
+    <h2>Mutações possíveis:</h2>
     <div v-for="line in Array(numberOfMutations[0]).keys()" :key="line">
       <mutation-button
         v-for="column in Array(numberOfMutations[1]).keys()"
@@ -24,13 +24,13 @@
 import MutationButton from "./MutationButton.vue";
 export default {
   components: { MutationButton },
-  data: () => ({ numberOfMutations: [5, 5] }),
+  data: () => ({ numberOfMutations: [5, 10] }),
   computed: {
     buttonsState() {
       return this.$store.getters.getButtonsState;
     },
     cowPlayer() {
-      return this.$store.getters.getCowPlayer;
+      return this.$store.getters.getCurrentCowPlayer;
     },
     possibleMutationOperators() {
       //new Array(5).fill(new Array(5).fill(false))
@@ -45,18 +45,6 @@ export default {
             `Produção reduzida para ${Math.floor(
               this.cowPlayer.baseProduction / 5
             )} ml no alelo ${allele.alleleName}`,
-        },
-        {
-          fn: () => this.cowPlayer.baseProduction,
-          name: (allele) =>
-            `Produção alterada para ${this.cowPlayer.baseProduction} ml no alelo ${allele.alleleName}`,
-        },
-        {
-          fn: () => this.cowPlayer.baseProduction * 2,
-          name: (allele) =>
-            `Produção alterada para ${
-              this.cowPlayer.baseProduction * 2
-            } ml no alelo ${allele.alleleName}`,
         },
         {
           fn: (value) => value * 2,

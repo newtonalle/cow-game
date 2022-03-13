@@ -6,9 +6,33 @@ export const toggleMutationButton = (context, { line, column }) => context.commi
 
 export const toggleBirthButton = (context, sex) => context.commit("toggleBirthButton", sex)
 
+export const setGamemode = (context, gamemode) => context.commit("setGamemode", gamemode)
+
 export const setCurrentStage = (context, stage) => context.commit("setCurrentStage", stage)
 
-export const registerCow = (context, { name, numberOfGenes }) => context.commit('registerCow', { name, numberOfGenes })
+export const registerCow = (context, { name, numberOfGenes }) => {
+    context.commit('setState', defaultState())
+    context.commit('setGamemode', {
+        name: "singleplayer",
+        label: "Um jogador"
+    })
+    context.commit('registerCow', { name, numberOfGenes })
+
+}
+
+export const removeMultiplayerCow = (context, index) => context.commit("removeMultiplayerCow", index)
+
+export const registerGame = (context, { cowPlayers, numberOfGenes, gamemode }) => {
+    context.commit('setState', defaultState())
+    context.commit("registerGame", { cowPlayers, numberOfGenes })
+    context.commit('setGamemode',
+        gamemode,
+    )
+}
+
+export const nextCow = (context, page) => context.commit('nextCow', page)
+
+export const setCurrentCowIndex = (context, index) => context.commit('setCurrentCowIndex', index)
 
 export const born = (context) => context.commit('born')
 
@@ -28,19 +52,15 @@ export const applyMutation = (context, { allele, operator, position }) => {
     }
 }
 
-// Ajeitar CSS e frases - Done
-
-// Só mostrar "continuar jogo" no navbar se um jogo já existir- Done
-
-// Alterar botões - Done
-
-// Alterar tabelas - J
-
-// Escrever texto da home do jogo da vaca - Done
-
-// Arrumar bug de duplicação de alelos - J
-
-// Quando o alelo não alterar de valor ao ser operado alterar frase para - Mutação Neutra
-
 
 // Apagar debugs
+
+// Fazer Multiplayer Local - Sistema de repetir páginas para cada player
+
+// Bloquear o usuário de acessar páginas multiplayer sem ter feito tudo com todas as vacas na
+// página anterior
+
+// Páginas Restantes Multiplayer: Mutate, Results
+
+// Corrigir erro de centralização das tabelas
+

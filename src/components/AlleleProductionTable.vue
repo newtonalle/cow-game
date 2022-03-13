@@ -1,11 +1,48 @@
 <template>
   <div>
     <h2>Produção dos alelos:</h2>
-    <br />
-    <p class="fs-5" v-for="(gene, index) of genes" :key="`gene-${index}`">
-      Alelo {{ gene.male.alleleName }}: {{ gene.male.production }}ml | Alelo
-      {{ gene.female.alleleName }}: {{ gene.female.production }}ml
-    </p>
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Alelos de origem masculina</th>
+                <th scope="col">Produção</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                v-for="allele in cowPlayer.alleles.male"
+                :key="`male-${allele.alleleName}`"
+              >
+                <th>{{ allele.alleleName }}</th>
+                <td>{{ allele.production }}ml</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="col">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Alelos de origem feminina</th>
+                <th scope="col">Produção</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                v-for="allele in cowPlayer.alleles.female"
+                :key="`female-${allele.alleleName}`"
+              >
+                <th>{{ allele.alleleName }}</th>
+                <td>{{ allele.production }}ml</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -13,7 +50,7 @@
 export default {
   computed: {
     cowPlayer() {
-      return this.$store.getters.getCowPlayer;
+      return this.$store.getters.getCurrentCowPlayer;
     },
     genes() {
       const genes = [];
