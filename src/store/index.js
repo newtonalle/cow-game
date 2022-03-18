@@ -7,8 +7,6 @@ import * as getters from './getters'
 import * as mutations from './mutations'
 import * as actions from './actions'
 
-console.log(getters)
-
 Vue.use(Vuex)
 
 const vuexLocal = new VuexPersistence({

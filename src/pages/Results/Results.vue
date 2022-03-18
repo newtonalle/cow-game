@@ -1,22 +1,38 @@
 <template>
-  <div class="container-fluid text-center">
+  <div class="text-center">
     <img src="@/assets/images/Cow.png" width="100px" height="100px" />
+    <h1>{{ title }}</h1>
     <br />
-    <h1>Resultados:</h1>
+    <div v-if="gamemode.currentGamemode === 'multiplayer'">
+      <table class="table">
+        <thead>
+          <tr>
+            <th style="width: 33%">Posição</th>
+            <th style="width: 33%">Nome</th>
+            <th style="width: 33%">Produção</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            v-for="(cowPlayer, index) in sortedCowPlayers"
+            :key="`cowPlayer-${index}`"
+          >
+            <th>{{ index + 1 }}°</th>
+            <td>{{ cowPlayer.name }}</td>
+            <td>{{ totalProduction(cowPlayer) }} ml</td>
+          </tr>
+        </tbody>
+      </table>
+      <br />
+      <br />
+      <h1>{{ sortedCowPlayers[0].name }} ganhou o jogo!</h1>
+    </div>
+    <div v-if="gamemode.currentGamemode === 'singleplayer'">
+      <h2>{{ totalProduction(gamemode.cowPlayers[0]) }} ml</h2>
+      <br />
+      <h3 v-text="this.message"></h3>
+    </div>
     <br />
-    <h2>
-      A produção total de {{ cowPlayer.name }} foi de {{ totalProduction }} ml
-    </h2>
-    <br />
-    <h3 v-text="this.message"></h3>
-    <br />
-    <button
-      style="width: 200px"
-      @click="backToMainMenu"
-      class="btn btn-primary btn-lg mt-3"
-    >
-      Menu principal
-    </button>
     <br />
     <button
       style="width: 200px"
@@ -25,40 +41,64 @@
     >
       Jogar novamente
     </button>
+    <br />
+    <button
+      @click="backToMainMenu"
+      style="width: 200px"
+      class="btn btn-primary btn-lg mt-3"
+    >
+      Menu principal
+    </button>
+    <br />
+    <br />
   </div>
 </template>
 
 <script>
+import { calculateCowProduction } from "../../helpers/index.js";
 export default {
-  data: () => ({ message: "" }),
-  watch: {},
-
+  data: () => ({
+    message: "",
+  }),
   computed: {
-    cowPlayer() {
-      return this.$store.getters.getCurrentCowPlayer;
+    sortedCowPlayers() {
+      return this.$store.getters.getSortedCowPlayers;
     },
-    totalProduction() {
-      return this.$store.getters.getCowTotalProduction;
+    gamemode() {
+      return this.$store.getters.getGamemode;
+    },
+    title() {
+      let titles = {
+        multiplayer: "Produção final das vacas:",
+        singleplayer: "Produção final da vaca:",
+      };
+
+      return titles[this.gamemode.currentGamemode];
     },
   },
-
   methods: {
-    backToMainMenu() {
-      this.$router.push({ name: "home" });
+    totalProduction(cowPlayer) {
+      return calculateCowProduction(cowPlayer);
     },
+
     playAgain() {
       this.$router.push({ name: "register" });
     },
+
+    backToMainMenu() {
+      this.$router.push({ name: "home" });
+    },
   },
   created() {
-    this.$store.dispatch("setCurrentStage", "results");
-    if (this.$store.getters.getCowTotalProduction >= 6000) {
+    if (this.totalProduction(this.gamemode.cowPlayers[0]) >= 6000) {
       this.message =
-        "O leite produzido por sua vaca foi o suficiente para alimentar e criar proles saudáveis!";
+        "A produção da sua vaca foi o suficiente para criar proles boas e saudáveis...";
     } else {
       this.message =
-        "O leite produzido por sua vaca não foi o suficiente para alimentar e criar proles saudáveis, portanto suas proles cresceram fracas e desnutridas!";
+        "A produção da sua vaca não foi o suficiente para criar suas proles, portanto elas cresceram fracas e desnutridas...";
     }
+
+    this.$store.dispatch("setCurrentStage", "results");
   },
 };
 </script>

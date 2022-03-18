@@ -5,42 +5,11 @@ export const setState = (prevState, newState) => {
     console.log(prevState, newState)
 }
 
-export const toggleMutationButton = (state, { line, column }) => state.buttonsState.mutationButtons[line][column] = !state.buttonsState.mutationButtons[line][column]
-
-export const toggleBirthButton = (state, sex) => {
-    state.buttonsState.birthButtons[sex] = !state.buttonsState.birthButtons[sex]
-}
-
 export const setGamemode = (state, gamemode) => {
     state.game.currentGamemode = gamemode
 }
 
 export const setCurrentStage = (state, stage) => state.game.currentStage = stage
-
-
-export const registerCow = (state, { name, numberOfGenes }) => {
-    const sexSuffixes = {
-        male: "♂",
-        female: "♀"
-    }
-
-    state.cowPlayer.name = name
-    state.cowPlayer.baseProduction = Math.floor(REFERENCE_BASE_PRODUCTION / numberOfGenes)
-    state.cowPlayer.mutationsRemaining = numberOfGenes
-    for (let index = 0; index < numberOfGenes; index++) {
-        const letter = String.fromCharCode(65 + index)
-
-        Object.entries(sexSuffixes).forEach(([sex, sexSuffixes]) => {
-            state.cowPlayer.alleles[sex].push({
-                alleleName: `${letter}${sexSuffixes}`,
-                production: 0,
-                hasMutated: false
-            })
-        });
-
-    }
-    state.cowPlayer.born = false
-}
 
 export const registerGame = (state, { cowPlayers, numberOfGenes }) => {
 
@@ -72,31 +41,31 @@ export const registerGame = (state, { cowPlayers, numberOfGenes }) => {
 }
 
 export const nextCow = (state, page) => {
-    let i = state.game.cowPlayers.length
+    let i = state.game.cowPlayers.length - 1
 
-    switch (page) {
-        case "birth":
+    state.game.cowPlayers.forEach((cow, index) => {
+        if (state.game.currentCowIndex < index) {
+            switch (page) {
+                case "birth":
+                    if (!cow.born && i > index) {
+                        i = index
+                    }
 
-            state.game.cowPlayers.forEach((cow, index) => {
-                if (!cow.born && i > index) {
-                    state.game.currentCowIndex = index
-                    i = index
+                    break;
 
-                }
-            });
-            break;
+                case "mutate":
+                    if (!cow.mutated && i > index) {
+                        i = index
+                    }
 
-        case "mutate":
-            state.game.cowPlayers.forEach((cow, index) => {
-                if (cow.mutationsRemaining <= 0) {
-                    state.game.currentCowIndex = index
-                }
-            });
-            break;
+                    break;
 
-        default:
-            break;
-    }
+                default:
+                    break;
+            }
+        }
+    });
+    state.game.currentCowIndex = i
 }
 
 export const setCurrentCowIndex = (state, index) => state.game.currentCowIndex = index
@@ -131,10 +100,13 @@ export const randomizeAlleleProduction = (state, { sex }) => {
 }
 
 export const applyMutation = (state, { allele, operator, position }) => {
-    state.cowPlayer.alleles[allele.sex][allele.index].production = operator.fn(allele.production)
-    state.cowPlayer.alleles[allele.sex][allele.index].hasMutated = true
-    state.cowPlayer.activeMutations = [...state.cowPlayer.activeMutations, { operator: { ...operator, name: operator.name(allele) }, allele, position }]
-    state.cowPlayer.mutationsRemaining -= 1
+    state.game.cowPlayers[state.game.currentCowIndex].alleles[allele.sex][allele.index].production = operator.fn(allele.production)
+    state.game.cowPlayers[state.game.currentCowIndex].alleles[allele.sex][allele.index].hasMutated = true
+    state.game.cowPlayers[state.game.currentCowIndex].activeMutations = [...state.game.cowPlayers[state.game.currentCowIndex].activeMutations, { operator: { ...operator, name: operator.name(allele) }, allele, position }]
+    state.game.cowPlayers[state.game.currentCowIndex].mutationsRemaining -= 1
+    if (state.game.cowPlayers[state.game.currentCowIndex].mutationsRemaining <= 0) {
+        state.game.cowPlayers[state.game.currentCowIndex].mutated = true
+    }
 }
 
 

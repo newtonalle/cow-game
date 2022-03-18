@@ -14,8 +14,8 @@
       <table class="table">
         <thead>
           <tr>
-            <th scope="col">Alelo</th>
-            <th scope="col">Produção</th>
+            <th scope="col" style="width: 50%">Alelo</th>
+            <th scope="col" style="width: 50%">Produção</th>
           </tr>
         </thead>
         <tbody>

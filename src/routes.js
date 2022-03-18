@@ -8,13 +8,13 @@ import Credits from './pages/Credits/Credits.vue'
 import Results from './pages/Results/Results.vue'
 
 export default [
-    { path: '/', alias: ['/home'], component: Home, name: "home" },
+    { path: '/', alias: ['/home'], component: Home, name: 'home' },
     { path: '/rules', component: Rules, name: 'rules' },
-    { path: '/register', component: Register, name: "register" },
-    { path: '/resume', component: Resume, name: "resume" },
-    { path: '/play/birth', component: Birth, meta: { requiresRegisteredGame: true }, name: "birth" },
-    { path: '/play/mutate', component: Mutate, meta: { requiresBornGame: true }, name: "mutate" },
+    { path: '/register', component: Register, name: 'register' },
+    { path: '/resume', component: Resume, meta: { requiresBornGame: true, requiresMultiplayerGame: true }, name: 'resume' },
     { path: '/credits', component: Credits, name: 'credits' },
+    { path: '/play/birth', component: Birth, meta: { requiresRegisteredGame: true }, name: 'birth' },
+    { path: '/play/mutate', component: Mutate, meta: { requiresBornGame: true }, name: 'mutate' },
     { path: '/results', component: Results, meta: { requiresMutatedGame: true }, name: 'results' },
 
 ]

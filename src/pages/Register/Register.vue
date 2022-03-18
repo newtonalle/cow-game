@@ -82,6 +82,7 @@
       Alternar Modo de Jogo
     </button>
     <br />
+    <br />
   </div>
 </template>
 
@@ -115,6 +116,7 @@ export default {
             },
             activeMutations: [],
             born: false,
+            mutated: false,
             name: this.name,
             mutationsRemaining: 0,
             alleles: {
@@ -124,6 +126,7 @@ export default {
           },
         ],
         numberOfGenes: this.numberOfGenes,
+        gamemode: this.currentGamemode.name,
       });
       this.$router.push({ name: "birth" });
     },
@@ -143,6 +146,7 @@ export default {
         },
         activeMutations: [],
         born: false,
+        mutated: false,
         name: this.name,
         mutationsRemaining: 0,
         alleles: {

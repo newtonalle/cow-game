@@ -1,9 +1,8 @@
 import { calculateCowProduction } from '../helpers/index.js'
 
 export const hasGameRegistered = (state) => {
-    if (state.game.hasRegistered) {
-        return true
-    }
+    return state.game.hasRegistered
+
 }
 
 export const hasGameBorn = (state) => {
@@ -17,7 +16,7 @@ export const hasGameBorn = (state) => {
 
 export const hasGameMutated = (state) => {
     for (let index = 0; index < state.game.cowPlayers.length; index++) {
-        if (state.game.cowPlayers[index].mutationsRemaining <= 0) {
+        if (!state.game.cowPlayers[index].mutated) {
             return false
         }
     }
@@ -38,8 +37,6 @@ export const getCowTotalProduction = (state) => {
 
 export const getSortedCowPlayers = (state) => {
     let cowPlayers = state.game.cowPlayers
-
-    cowPlayers.sort((a, b) => calculateCowProduction(b) - calculateCowProduction(a))
-
-    return cowPlayers
+    let sortedCowPlayers = [...cowPlayers].sort((a, b) => calculateCowProduction(b) - calculateCowProduction(a))
+    return sortedCowPlayers
 }

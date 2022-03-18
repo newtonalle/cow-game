@@ -1,13 +1,14 @@
 <template>
   <div class="text-center">
+    <img src="@/assets/images/Cow.png" width="100px" height="100px" />
     <h1>Resumo das vacas:</h1>
     <br />
     <table class="table">
       <thead>
         <tr>
-          <th>Posição</th>
-          <th>Nome</th>
-          <th>Produção</th>
+          <th style="width: 33%">Posição</th>
+          <th style="width: 33%">Nome</th>
+          <th style="width: 33%">Produção</th>
         </tr>
       </thead>
       <tbody>
