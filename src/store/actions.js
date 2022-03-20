@@ -26,7 +26,6 @@ export const randomizeAlleleProduction = (context, { index, sex }) => context.co
 
 export const applyMutation = (context, { allele, operator, position }) => {
     context.commit('applyMutation', { allele, operator, position })
-    console.log(context)
     if (!context.state.game.cowPlayers[context.state.game.currentCowIndex].mutationsRemaining) {
         alert('Número de mutações na vida atingido')
     }
