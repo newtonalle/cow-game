@@ -10,7 +10,7 @@
       <br />
       <button
         style="width: 200px"
-        :disabled="!this.$store.getters.hasRegistered"
+        :disabled="!this.$store.getters.hasGameRegistered"
         @click="redirect($store.getters.getCurrentStage)"
         type="button"
         class="btn btn-primary btn-lg mt-3"

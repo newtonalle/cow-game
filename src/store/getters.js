@@ -1,16 +1,42 @@
+import { calculateCowProduction } from '../helpers/index.js'
 
-export const hasRegistered = (state) => state.cowPlayer.name != ""
+export const hasGameRegistered = (state) => {
+    return state.game.hasRegistered
 
-export const hasBorn = (state) => state.cowPlayer.born
+}
 
-export const hasMutated = (state) => state.cowPlayer.mutationsRemaining <= 0
+export const hasGameBorn = (state) => {
+    for (let index = 0; index < state.game.cowPlayers.length; index++) {
+        if (!state.game.cowPlayers[index].born) {
+            return false
+        }
+    }
+    return true
+}
 
-export const getCowPlayer = (state) => state.cowPlayer
+export const hasGameMutated = (state) => {
+    for (let index = 0; index < state.game.cowPlayers.length; index++) {
+        if (!state.game.cowPlayers[index].mutated) {
+            return false
+        }
+    }
+    return true
+}
 
-export const getCurrentStage = (state) => state.cowPlayer.currentStage
+export const getCurrentCowPlayer = (state) => state.game.cowPlayers[state.game.currentCowIndex]
+
+export const getCurrentStage = (state) => state.game.currentStage
 
 export const getButtonsState = (state) => state.buttonsState
 
-export const getCowTotalProduction = (state) => state.cowPlayer.alleles.male.reduce((production, allele) => allele.production + production, 0) +
-    state.cowPlayer.alleles.female.reduce((production, allele) => allele.production + production, 0)
+export const getGamemode = (state) => state.game
 
+export const getCowTotalProduction = (state) => {
+    return calculateCowProduction(state.game.cowPlayers[state.game.currentCowIndex])
+}
+
+export const getSortedCowPlayers = (state) => {
+    let cowPlayers = state.game.cowPlayers
+    let sortedCowPlayers = [...cowPlayers].sort((a, b) => calculateCowProduction(b) - calculateCowProduction(a))
+    return sortedCowPlayers
+}

@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container-fluid">
       <router-link class="navbar-brand" :to="{ name: 'home' }">
         Vacas Sobreviventes
@@ -25,7 +25,7 @@
             <router-link
               v-if="
                 !navbarLink.requiresRegisteredPlayer ||
-                $store.getters.hasRegistered
+                $store.getters.hasGameRegistered
               "
               :class="[
                 'nav-link',
